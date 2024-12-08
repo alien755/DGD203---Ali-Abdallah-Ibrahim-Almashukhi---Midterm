@@ -1,0 +1,83 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Welcome to the 'Would You Rather' Game!");
+
+        // Ask for the player's name
+        Console.Write("Please enter your name: ");
+        string playerName = Console.ReadLine();
+
+        // Questions and choices
+        string[] questions = {
+            "Would you rather: \nA) Travel to the past \nB) Travel to the future",
+            "Would you rather: \nA) Have the ability to fly \nB) Have the ability to be invisible",
+            "Would you rather: \nA) Live in a city \nB) Live in the countryside",
+            "Would you rather: \nA) Be a famous actor \nB) Be a revolutionary scientist"
+        };
+
+        // Store answers
+        char[] answers = new char[questions.Length];
+
+        // Ask questions
+        for (int i = 0; i < questions.Length; i++)
+        {
+            Console.WriteLine(questions[i]);
+            Console.Write("Your choice (A/B): ");
+            char choice = Console.ReadKey().KeyChar;
+            Console.WriteLine(); // Move to the next line for readability
+
+            // Validate input
+            while (choice != 'A' && choice != 'B')
+            {
+                Console.Write("Invalid choice. Please enter A or B: ");
+                choice = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+            }
+
+            answers[i] = char.ToUpper(choice); // Store the validated answer
+        }
+
+        // Generate a remark based on answers
+        GenerateRemark(playerName, answers);
+    }
+
+    static void GenerateRemark(string playerName, char[] answers)
+    {
+        Console.WriteLine("\nThank you for participating, " + playerName + "!");
+        int choiceA = 0, choiceB = 0;
+
+        // Count A's and B's
+        foreach (char answer in answers)
+        {
+            if (answer == 'A') choiceA++;
+            else if (answer == 'B') choiceB++;
+        }
+
+        // Create a personalized remark
+        if (choiceA > choiceB)
+        {
+            Console.WriteLine("You seem to be a person who loves adventure and exploring the unknown!");
+        }
+        else if (choiceB > choiceA)
+        {
+            Console.WriteLine("You appear to be someone who values comfort and stability in life!");
+        }
+        else
+        {
+            Console.WriteLine("You're a balanced individual who appreciates both adventure and stability!");
+        }
+
+        // Additional remarks based on specific combinations of choices
+        if (answers[0] == 'A' && answers[1] == 'A')
+        {
+            Console.WriteLine("You're someone who would not only explore time but also conquer the skies!");
+        }
+        else if (answers[2] == 'B' && answers[3] == 'B')
+        {
+            Console.WriteLine("You seem to be someone who would thrive in a peaceful environment, with big ideas and quiet reflection.");
+        }
+    }
+}
